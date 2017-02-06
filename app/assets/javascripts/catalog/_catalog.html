@@ -1,0 +1,36 @@
+<div>
+
+	<div ng-if="products.length">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Product</th>
+					<th>Price</th>
+					<th class="text-center">Quantity</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="product in products track by product.id">
+					<td>{{ product.name }}</td>
+					<td class="text-danger">${{ product.price }}</td>
+					<td class="text-center">{{ product.quantity }}</td>
+					<td>
+						<button ng-click="addToCart(product)" ng-class="{'disabled': !product.quantity}" class="btn btn-default btn-sm pull-right">
+							Add to cart
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-if="!isLoading && !products.length">
+		<p class="text-center">Catalog is empty</p>
+	</div>
+
+	<div ng-if="isLoading && !products.length">
+		<p class="text-center">Loading...</p>
+	</div>
+
+</div>

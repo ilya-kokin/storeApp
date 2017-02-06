@@ -1,0 +1,30 @@
+<div>
+
+	<div ng-if="orders.length">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Order number</th>
+					<th>Customer</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in orders track by item.id">
+					<td>#{{ item.id }}</td>
+					<td>{{ item.customer_name }}</td>
+					<td>{{ item.created_at | date:"MM.dd.yyyy 'at' hh:mma" }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div ng-if="!isLoading && !orders.length">
+		<p class="text-center">No orders yet</p>
+	</div>
+
+	<div ng-if="isLoading && !orders.length">
+		<p class="text-center">Loading...</p>
+	</div>
+
+</div>

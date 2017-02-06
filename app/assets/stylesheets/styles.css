@@ -1,0 +1,30 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+}
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
+
+.form-group {
+	position: relative;
+}
+
+.form-group {
+	margin-left: 10px;
+}
+
+input:not(:focus).ng-invalid.ng-dirty {
+	border-color: #a94442;
+}
+
+input:focus + .error-msg {
+	display: none;
+}
+
+.error-msg {
+	position: absolute;
+	right: 0;
+	margin-top: 5px;
+	color: #a94442;
+}

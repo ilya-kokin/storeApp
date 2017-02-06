@@ -1,0 +1,86 @@
+<div>
+	<div ng-if="cart.length">
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Product</th>
+						<th>Price</th>
+						<th class="text-center">Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="product in cart track by product.id">
+						<th>{{ $index + 1 }}</th>
+						<td>{{ product.name }}</td>
+						<td class="text-danger">${{ product.price }}</td>
+						<td class="text-center">{{ product.quantity }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<p class="text-right">
+				<span>
+					Subtotal (<span ng-pluralize count="cartCounter" when="{'1': '1 item', 'other': '{} items'}"></span>): <span class="text-danger"><strong>$<span ng-bind="countSubtotal()"></span></strong></span>
+				</span>
+			</p>
+		</div>
+
+		<div>
+			<div class="page-header">
+				<h4>Create an order</h4>
+			</div>
+			<div class="panel-body">
+				<form class="form-inline" name="orderForm" novalidate>
+					<fieldset ng-disabled="isSending">
+						<div class="form-group">
+							<label for="nameField">Name*</label>
+							<input
+								required
+								type="text"
+								id="nameField"
+								name="name"
+								ng-model="customer.name"
+								class="form-control"
+								maxlength="50"
+								ng-pattern="/^[\w ]+$/"
+								placeholder="John Doe">
+							<div class="error-msg" ng-show="orderForm.name.$dirty" ng-messages="orderForm.name.$error">
+								<span ng-message="required">Enter your name</span>
+								<span ng-message="pattern">
+									Incorrect value
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="phoneField">Phone*</label>
+							<input
+								required
+								type="text"
+								id="phoneField"
+								name="phone"
+								ng-model="customer.phone"
+								ui-mask="(999)999-9999"
+								class="form-control">
+							<div class="error-msg" ng-show="orderForm.phone.$dirty" ng-messages="orderForm.phone.$error">
+								<span ng-message="required">Enter your phone</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<button ng-click="sendOrder()" type="submit" class="btn btn-primary pull-right">Submit</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+		<div ng-if="alert.msg" class="alert" ng-class="{'alert-success': !alert.isError, 'alert-warning': alert.isError }" role="alert">{{ alert.msg }}</div>
+	</div>
+
+	<div ng-if="!cart.length">
+		<p class="text-center">Your cart is empty</p>
+	</div>
+
+</div>
