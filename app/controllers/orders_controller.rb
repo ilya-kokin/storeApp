@@ -7,6 +7,9 @@ class OrdersController < ApplicationController
 	def create
 		@order = Order.new(order_params)
 		if @order.save
+			order_params['order'].each do |product|
+				Product.find(product['id']).decrement(:quantity, product['quantity']).save
+			end
 			render :json => { result: true }
 		else
 			render :json => { error: true }
@@ -16,8 +19,7 @@ class OrdersController < ApplicationController
 	private
 
 	def order_params
-		# params.require(:order).permit!
-		params.require(:order).permit(:customer_name, :customer_phone, :order => [:id, :name, :quantity, :price])
+		params.require(:order).permit(:customer_name, :customer_phone, :created_at, :updated_at, :order => [:id, :name, :quantity, :price])
 	end
-
+	
 end
